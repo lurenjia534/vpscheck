@@ -5,9 +5,9 @@ edition = "2024"
 
 [dependencies]
 actix-web = "4.11"
-serde = "1.0.219"
+serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0"
-tokio = "1.45.1"
+tokio = { version = "1.45.1", features = ["rt", "rt-multi-thread", "macros"] }
 sysinfo = { version = "0.35" }
 procfs  = "0.17.0"          # 与 sysinfo MSRV 相同
 anyhow  = "1.0.98"
