@@ -1,0 +1,9 @@
+[package]
+name = "vpscheck"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sysinfo = { version = "0.35" }
+procfs  = "0.17.0"          # 与 sysinfo MSRV 相同
+anyhow  = "1.0.98"
