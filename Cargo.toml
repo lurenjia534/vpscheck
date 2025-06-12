@@ -7,6 +7,7 @@ edition = "2024"
 actix-web = "4.11"
 serde = "1.0.219"
 serde_json = "1.0"
+tokio = "1.45.1"
 sysinfo = { version = "0.35" }
 procfs  = "0.17.0"          # 与 sysinfo MSRV 相同
 anyhow  = "1.0.98"
