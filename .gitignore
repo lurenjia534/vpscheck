@@ -1,1 +1,4 @@
-target/
+/target
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/vpscheck.iml
