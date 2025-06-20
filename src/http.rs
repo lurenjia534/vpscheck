@@ -59,8 +59,11 @@ async fn ws(req: HttpRequest, body: web::Payload) -> Result<HttpResponse, Error>
 }
 
 pub async fn run() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(metrics).service(ws))
-        .bind(("0.0.0.0", 8080))?
-        .run()
-        .await
+    let server = HttpServer::new(|| App::new().service(metrics).service(ws))
+        .bind(("0.0.0.0", 8080))?;
+    for addr in server.addrs() {
+        println!("Web 服务器已启动，监听地址：http://{}", addr);
+        println!("WebSocket 服务器已启动，监听地址：ws://{}", addr);
+    }
+    server.run().await
 }
