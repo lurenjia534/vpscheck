@@ -14,7 +14,7 @@ async fn metrics() -> impl Responder {
 }
 
 #[get("/ws")]
-pub async fn ws(req: HttpRequest, body: web::Payload) -> Result<HttpResponse, Error> {
+async fn ws(req: HttpRequest, body: web::Payload) -> Result<HttpResponse, Error> {
     let (response, mut session, mut stream) = handle(&req, body)?;
 
     actix_web::rt::spawn(async move {
