@@ -13,3 +13,7 @@ futures-util = { version = "0.3", default-features = false, features = ["std"] }
 sysinfo = { version = "0.35" }
 procfs  = "0.17.0"          # 与 sysinfo MSRV 相同
 anyhow  = "1.0.98"
+
+[dev-dependencies]
+actix-test = "0.1"
+awc = "3"
