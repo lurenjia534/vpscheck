@@ -1,11 +1,11 @@
-use actix_web::{get, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder};
+use actix_web::{get, web, Error, HttpRequest, HttpResponse, Responder};
 use futures_util::StreamExt as _;
-use crate::metrics::snapshot;
 use actix_ws::{Message, handle};
 use tokio::time::{interval, Duration};
+use crate::metrics::snapshot;
 
 #[get("/metrics")]
-async fn metrics() -> impl Responder {
+pub async fn metrics() -> impl Responder {
     match snapshot().await {
         Ok(m)  => HttpResponse::Ok().json(m),          // application/json
         Err(e) => HttpResponse::InternalServerError()
@@ -14,7 +14,7 @@ async fn metrics() -> impl Responder {
 }
 
 #[get("/ws")]
-async fn ws(req: HttpRequest, body: web::Payload) -> Result<HttpResponse, Error> {
+pub async fn ws(req: HttpRequest, body: web::Payload) -> Result<HttpResponse, Error> {
     let (response, mut session, mut stream) = handle(&req, body)?;
 
     actix_web::rt::spawn(async move {
@@ -56,14 +56,4 @@ async fn ws(req: HttpRequest, body: web::Payload) -> Result<HttpResponse, Error>
     });
 
     Ok(response)
-}
-
-pub async fn run() -> std::io::Result<()> {
-    let server = HttpServer::new(|| App::new().service(metrics).service(ws))
-        .bind(("0.0.0.0", 8080))?;
-    for addr in server.addrs() {
-        println!("Web 服务器已启动，监听地址：http://{}", addr);
-        println!("WebSocket 服务器已启动，监听地址：ws://{}", addr);
-    }
-    server.run().await
 }

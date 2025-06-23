@@ -1,2 +1,2 @@
 pub mod metrics;
-pub mod http;
+pub mod web;
