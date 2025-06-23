@@ -10,10 +10,12 @@ cargo build --release
 
 ## Running
 
-Launch the server (listens on port `8080` by default):
+Launch the server (listens on port `8080` by default). To use a custom port,
+set the `PORT` environment variable before running:
 
 ```bash
-cargo run --release
+cargo run --release              # uses port 8080
+# PORT=5000 cargo run --release  # custom port example
 ```
 
 ## Querying Metrics
@@ -30,7 +32,8 @@ Requesting `http://localhost:8080/metrics` returns current system statistics in 
 Connect to `ws://localhost:8080/ws` to receive the same metrics as a JSON string every second.
 This endpoint is useful for dashboards that need live updates.
 
-An integration test in `tests/ws_test.rs` ensures the WebSocket service works correctly.
+Integration tests in `tests/ws_test.rs` and `tests/port_test.rs` verify the
+WebSocket endpoint and port configuration respectively.
 
 ## Project Structure
 
@@ -43,5 +46,6 @@ src/
     ├── mod.rs     # server configuration
     └── routes.rs  # HTTP and WebSocket handlers
 tests/
-└── ws_test.rs     # integration test
+├── ws_test.rs     # integration test
+└── port_test.rs   # verifies custom PORT setting
 ```
