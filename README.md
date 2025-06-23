@@ -31,3 +31,17 @@ Connect to `ws://localhost:8080/ws` to receive the same metrics as a JSON string
 This endpoint is useful for dashboards that need live updates.
 
 An integration test in `tests/ws_test.rs` ensures the WebSocket service works correctly.
+
+## Project Structure
+
+```
+src/
+├── main.rs        # binary entry point
+├── lib.rs         # exposes library modules
+├── metrics.rs     # system metric collection
+└── web/
+    ├── mod.rs     # server configuration
+    └── routes.rs  # HTTP and WebSocket handlers
+tests/
+└── ws_test.rs     # integration test
+```

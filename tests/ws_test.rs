@@ -7,7 +7,7 @@ use tokio::time::timeout;
 
 #[actix_web::test]
 async fn websocket_streams_metrics() {
-    let mut srv = start(|| App::new().service(vpscheck::http::ws));
+    let mut srv = start(|| App::new().service(vpscheck::web::ws));
     let mut framed = srv.ws_at("/ws").await.expect("connect");
 
     let frame = timeout(Duration::from_secs(3), framed.next())
