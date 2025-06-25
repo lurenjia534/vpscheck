@@ -87,8 +87,9 @@ pub async fn snapshot() -> Result<Metrics> {
         mem_total: fmt(mem_total),
         disk_used_gib:  disk_used  as f64 / BYTES_PER_GIB,
         disk_total_gib: disk_total as f64 / BYTES_PER_GIB,
-        rx_rate: rx1 - rx0,
-        tx_rate: tx1 - tx0,
+        // saturating_sub handles counter wrap
+        rx_rate: rx1.saturating_sub(rx0),
+        tx_rate: tx1.saturating_sub(tx0),
         rx_total_gib: rx1 as f64 / BYTES_PER_GIB,
         tx_total_gib: tx1 as f64 / BYTES_PER_GIB,
         swap_used_mib:  swap_used  as f64 / BYTES_PER_MIB,
